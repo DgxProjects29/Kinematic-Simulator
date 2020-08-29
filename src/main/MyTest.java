@@ -1,6 +1,6 @@
 package main;
 
-import interfaces.VelocityForm;
+import forms.VelocityForm;
 import vectors.Velocity;
 
 public class MyTest {

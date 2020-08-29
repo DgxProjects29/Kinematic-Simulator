@@ -1,5 +1,9 @@
 package interfaces;
 
+import forms.AccelerationForm;
+import forms.VelocityForm;
+import forms.PositionForm;
+
 public class ToolInterface extends javax.swing.JFrame {
 
     public ToolInterface() {
@@ -541,6 +545,11 @@ public class ToolInterface extends javax.swing.JFrame {
 
     private void onCreateBallButton(java.awt.event.MouseEvent evt) {
         
+        VelocityForm velocityForm = new VelocityForm("", "");
+        if (velocityForm.isDataValid){
+            
+        }
+
     }
 
     private void onStartSimulation(java.awt.event.MouseEvent evt) {

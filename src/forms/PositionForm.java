@@ -1,4 +1,4 @@
-package interfaces;
+package forms;
 
 import extras.Utils;
 import vectors.Position;
