@@ -10,7 +10,7 @@ public class Utils {
      * 
      */
 
-    public static int FPS = 45;
+    public static int FPS = 30;
     
     public static float fromPixelsToMeters(float pixels) {
         return pixels / 100;

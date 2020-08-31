@@ -4,14 +4,17 @@ import forms.PositionForm;
 import forms.VelocityForm;
 import forms.AccelerationForm;
 import main.InterfaceEvents;
-import vectors.Acceleration;
-import vectors.Velocity;
 import vectors.Position;
-
+import extras.Utils;
 
 public class ToolInterface extends javax.swing.JFrame {
 
     private InterfaceEvents interfaceEvents;
+    private boolean isRunning = false;
+
+    private java.awt.Color STAR_BUTTON_COLLOR = new java.awt.Color(40, 167, 69);  
+    private java.awt.Color STOP_BUTTON_COLOR = new java.awt.Color(220, 53, 69); 
+    //#28a745 #dc3545 
    
     public ToolInterface() {
         initComponents();
@@ -55,6 +58,8 @@ public class ToolInterface extends javax.swing.JFrame {
         ay_field = new javax.swing.JTextField();
         create_ball_button = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        set_position_button = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         divider2 = new javax.swing.JPanel();
         jSeparator5 = new javax.swing.JSeparator();
         divider2_label = new javax.swing.JLabel();
@@ -305,6 +310,22 @@ public class ToolInterface extends javax.swing.JFrame {
         jLabel4.setIconTextGap(15);
         create_ball_button.add(jLabel4);
 
+        set_position_button.setBackground(new java.awt.Color(38, 50, 56));
+        set_position_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        set_position_button.setName("Home"); // NOI18N
+        set_position_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onSetPositionButton(evt);
+            }
+        });
+        set_position_button.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Set position");
+        jLabel7.setIconTextGap(15);
+        set_position_button.add(jLabel7);
+
         divider2.setBackground(new java.awt.Color(248, 249, 250));
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
@@ -500,7 +521,9 @@ public class ToolInterface extends javax.swing.JFrame {
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(create_ball_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(create_ball_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(set_position_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(data_layout, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -519,7 +542,9 @@ public class ToolInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(yvector_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(create_ball_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(create_ball_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(set_position_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(divider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -562,12 +587,15 @@ public class ToolInterface extends javax.swing.JFrame {
         AccelerationForm accelerationForm = new AccelerationForm(ax_field.getText(), ay_field.getText());
         
         if (positionForm.isDataValid && velocityForm.isDataValid && accelerationForm.isDataValid){
+            
             boolean istrasnformUnitNeedIt = true;
 
             interfaceEvents.requesBallCreation(
                 positionForm.getValidatedData(istrasnformUnitNeedIt), 
                 velocityForm.getValidatedData(istrasnformUnitNeedIt), 
                 accelerationForm.getValidatedData(istrasnformUnitNeedIt));
+            
+            clearFields();
             
         }else{
             String all_error_messages = 
@@ -578,18 +606,43 @@ public class ToolInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_onCreateBallButton
 
+    private void clearFields(){
+        x0_field.setText("");
+        y0_field.setText("");
+        v0x_field.setText("");
+        v0y_field.setText("");
+        ax_field.setText("");
+        ay_field.setText("");
+    }
+
     public void setBallPosition(Position ballPosition){
-        x0_field.setText(Float.toString(ballPosition.x));
-        y0_field.setText(Float.toString(ballPosition.y));
+        float x = Utils.fromPixelsToMeters(ballPosition.x);
+        float y = Utils.fromPixelsToMeters(ballPosition.y);
+        x0_field.setText(Float.toString(x));
+        y0_field.setText(Float.toString(y));
     }
 
     private void onStartSimulation(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onStartSimulation
-        interfaceEvents.requestBallPosition();
+        if (isRunning){
+            interfaceEvents.stopSimulation();
+            isRunning = false;
+            start_button.setBackground(STAR_BUTTON_COLLOR);
+        }else{
+            interfaceEvents.starSimulation();
+            isRunning = true;
+            start_button.setBackground(STOP_BUTTON_COLOR);
+        }
     }//GEN-LAST:event_onStartSimulation
 
     private void onRestartSimulation(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onRestartSimulation
-        
+        isRunning = false;
+        start_button.setBackground(STAR_BUTTON_COLLOR);
+        interfaceEvents.restartSimulation();
     }//GEN-LAST:event_onRestartSimulation
+
+    private void onSetPositionButton(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onSetPositionButton
+        interfaceEvents.requestBallPosition();
+    }//GEN-LAST:event_onSetPositionButton
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -651,6 +704,7 @@ public class ToolInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -664,6 +718,7 @@ public class ToolInterface extends javax.swing.JFrame {
     private javax.swing.JLabel position_y_label;
     private javax.swing.JPanel processing_layout;
     private javax.swing.JPanel restart_button;
+    private javax.swing.JPanel set_position_button;
     private javax.swing.JPanel start_button;
     private javax.swing.JLabel title_label;
     private javax.swing.JTextField v0x_field;

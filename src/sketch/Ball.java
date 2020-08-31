@@ -7,9 +7,9 @@ public class Ball {
     private ProcessingSketch mySketch;
     private static float RADIUS = 20;
 
-    Position position;
-    Velocity velocity;
-    Acceleration acceleration;
+    private Position position;
+    private Velocity velocity;
+    private Acceleration acceleration;
    
     public Ball(ProcessingSketch mySketch, Position position, Velocity velocity,
         Acceleration acceleration){
@@ -33,7 +33,7 @@ public class Ball {
         drawBall();
     }
 
-    private void drawBall() {
+    public void drawBall() {
         mySketch.fill(255);
         mySketch.circle(position.x, position.y, RADIUS);
     }
@@ -49,7 +49,7 @@ public class Ball {
 
             position.x += velocity.x;
             velocity.x += acceleration.x;
-    
+        
             position.y += velocity.y;
             velocity.y += acceleration.y;
 
@@ -75,7 +75,7 @@ public class Ball {
 
     private boolean isBallUnderGround(){
 
-        return position.y > mySketch.height - 20;
+        return position.y > mySketch.height - RADIUS - 20;
     }
 
     public String getData(){

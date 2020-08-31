@@ -16,6 +16,7 @@ public class ProcessingSketch extends PApplet{
 
     //Flags
     public boolean isAskingForBallPosition = false;
+    public boolean isRunning = false;
 
     @Override
     public void settings() {
@@ -24,6 +25,7 @@ public class ProcessingSketch extends PApplet{
 
     @Override
     public void setup() {
+        frameRate(30);
         background(0);
         initSketch();
     }
@@ -36,7 +38,11 @@ public class ProcessingSketch extends PApplet{
     @Override
     public void draw() {
         background(0);
+
+        simulateKinematic();
+
         previewBall();
+        previewBalls();
     }
 
     @Override
@@ -48,6 +54,16 @@ public class ProcessingSketch extends PApplet{
         }
     }
 
+    private void simulateKinematic(){
+
+        if (isRunning){
+            for (int i = 0; i < ballIndex; i++) {
+                Ball ball = balls[i];
+                ball.onUpdate();
+            }
+        }
+    }
+
     private void previewBall(){
 
         if (isAskingForBallPosition){
@@ -55,15 +71,30 @@ public class ProcessingSketch extends PApplet{
         }
     }
 
+    private void previewBalls(){
+        if (!isRunning){
+            for (int i = 0; i < ballIndex; i++) {
+                Ball ball = balls[i];
+                ball.drawBall();
+            }
+        }
+    }
+
     public void createBall(Position ballPosition, Velocity ballVelocity,
         Acceleration ballAcceleration){
         
         if (ballIndex < MAX_BALL_SIZE){
-            balls[ballIndex] = new Ball(this, ballPosition, ballVelocity, ballAcceleration);
-            ballIndex ++;    
+            Ball newBall = new Ball(this, ballPosition, ballVelocity, ballAcceleration);
+            balls[ballIndex] = newBall;
+            ballIndex ++;
         }else{
             //Send error message to interface
         }
+    }
+
+    public void restartSketch(){
+        initSketch();
+        isRunning = false;
     }
 
     public void run(SketchEvents sketchEvents) {

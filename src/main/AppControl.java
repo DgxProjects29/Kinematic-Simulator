@@ -36,17 +36,17 @@ public class AppControl implements InterfaceEvents, SketchEvents {
 
     @Override
     public void starSimulation() {
-        
+        sketch.isRunning = true;
     }
 
     @Override
     public void stopSimulation() {
-
+        sketch.isRunning = false;
     }
 
     @Override
     public void restartSimulation() {
-
+        sketch.restartSketch();
     }
 
     @Override
