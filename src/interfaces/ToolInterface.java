@@ -1,15 +1,28 @@
 package interfaces;
 
-import forms.AccelerationForm;
-import forms.VelocityForm;
 import forms.PositionForm;
+import forms.VelocityForm;
+import forms.AccelerationForm;
+import main.InterfaceEvents;
+import vectors.Acceleration;
+import vectors.Velocity;
+import vectors.Position;
+
 
 public class ToolInterface extends javax.swing.JFrame {
 
+    private InterfaceEvents interfaceEvents;
+   
     public ToolInterface() {
         initComponents();
     }
 
+    public void setInterfaceEvents(InterfaceEvents interfaceEvents){
+        this.interfaceEvents = interfaceEvents;
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         parent_layout = new javax.swing.JPanel();
@@ -18,7 +31,7 @@ public class ToolInterface extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         divider1 = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
-        jLabel29 = new javax.swing.JLabel();
+        divider1_label = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         xvector_data = new javax.swing.JPanel();
         data1 = new javax.swing.JPanel();
@@ -26,7 +39,7 @@ public class ToolInterface extends javax.swing.JFrame {
         x0_field = new javax.swing.JTextField();
         data2 = new javax.swing.JPanel();
         v0x_label = new javax.swing.JLabel();
-        v0x_field1 = new javax.swing.JTextField();
+        v0x_field = new javax.swing.JTextField();
         data3 = new javax.swing.JPanel();
         ax_label = new javax.swing.JLabel();
         ax_field = new javax.swing.JTextField();
@@ -36,7 +49,7 @@ public class ToolInterface extends javax.swing.JFrame {
         y0_field = new javax.swing.JTextField();
         data5 = new javax.swing.JPanel();
         v0y_label = new javax.swing.JLabel();
-        voy_field = new javax.swing.JTextField();
+        v0y_field = new javax.swing.JTextField();
         data6 = new javax.swing.JPanel();
         ay_label = new javax.swing.JLabel();
         ay_field = new javax.swing.JTextField();
@@ -44,7 +57,7 @@ public class ToolInterface extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         divider2 = new javax.swing.JPanel();
         jSeparator5 = new javax.swing.JSeparator();
-        jLabel28 = new javax.swing.JLabel();
+        divider2_label = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         processing_layout = new javax.swing.JPanel();
         start_button = new javax.swing.JPanel();
@@ -53,7 +66,7 @@ public class ToolInterface extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         divider3 = new javax.swing.JPanel();
         jSeparator9 = new javax.swing.JSeparator();
-        jLabel30 = new javax.swing.JLabel();
+        divider3_label = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
         data_layout = new javax.swing.JPanel();
         position_x_label = new javax.swing.JLabel();
@@ -107,9 +120,9 @@ public class ToolInterface extends javax.swing.JFrame {
         jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator7.setForeground(new java.awt.Color(117, 117, 117));
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(117, 117, 117));
-        jLabel29.setText("Ball Settings");
+        divider1_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        divider1_label.setForeground(new java.awt.Color(117, 117, 117));
+        divider1_label.setText("Ball Settings");
 
         jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator8.setForeground(new java.awt.Color(117, 117, 117));
@@ -121,7 +134,7 @@ public class ToolInterface extends javax.swing.JFrame {
             .addGroup(divider1Layout.createSequentialGroup()
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
+                .addComponent(divider1_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator8))
         );
@@ -131,7 +144,7 @@ public class ToolInterface extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(divider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
+                    .addComponent(divider1_label)
                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -172,15 +185,15 @@ public class ToolInterface extends javax.swing.JFrame {
         v0x_label.setIconTextGap(12);
         data2.add(v0x_label);
 
-        v0x_field1.setBackground(new java.awt.Color(255, 255, 255));
-        v0x_field1.setColumns(7);
-        v0x_field1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        v0x_field1.setForeground(new java.awt.Color(33, 33, 33));
-        v0x_field1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        v0x_field1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)), javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7)));
-        v0x_field1.setMargin(new java.awt.Insets(10, 10, 10, 10));
-        v0x_field1.setName(""); // NOI18N
-        data2.add(v0x_field1);
+        v0x_field.setBackground(new java.awt.Color(255, 255, 255));
+        v0x_field.setColumns(7);
+        v0x_field.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        v0x_field.setForeground(new java.awt.Color(33, 33, 33));
+        v0x_field.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        v0x_field.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)), javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7)));
+        v0x_field.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        v0x_field.setName(""); // NOI18N
+        data2.add(v0x_field);
 
         xvector_data.add(data2);
 
@@ -242,15 +255,15 @@ public class ToolInterface extends javax.swing.JFrame {
         v0y_label.setIconTextGap(12);
         data5.add(v0y_label);
 
-        voy_field.setBackground(new java.awt.Color(255, 255, 255));
-        voy_field.setColumns(7);
-        voy_field.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        voy_field.setForeground(new java.awt.Color(33, 33, 33));
-        voy_field.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        voy_field.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)), javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7)));
-        voy_field.setMargin(new java.awt.Insets(10, 10, 10, 10));
-        voy_field.setName(""); // NOI18N
-        data5.add(voy_field);
+        v0y_field.setBackground(new java.awt.Color(255, 255, 255));
+        v0y_field.setColumns(7);
+        v0y_field.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        v0y_field.setForeground(new java.awt.Color(33, 33, 33));
+        v0y_field.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        v0y_field.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)), javax.swing.BorderFactory.createEmptyBorder(7, 7, 7, 7)));
+        v0y_field.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        v0y_field.setName(""); // NOI18N
+        data5.add(v0y_field);
 
         yvector_data.add(data5);
 
@@ -297,9 +310,9 @@ public class ToolInterface extends javax.swing.JFrame {
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator5.setForeground(new java.awt.Color(117, 117, 117));
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(117, 117, 117));
-        jLabel28.setText("Processing");
+        divider2_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        divider2_label.setForeground(new java.awt.Color(117, 117, 117));
+        divider2_label.setText("Processing");
 
         jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator6.setForeground(new java.awt.Color(117, 117, 117));
@@ -311,7 +324,7 @@ public class ToolInterface extends javax.swing.JFrame {
             .addGroup(divider2Layout.createSequentialGroup()
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
+                .addComponent(divider2_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6))
         );
@@ -321,7 +334,7 @@ public class ToolInterface extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(divider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
+                    .addComponent(divider2_label)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -370,9 +383,9 @@ public class ToolInterface extends javax.swing.JFrame {
         jSeparator9.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator9.setForeground(new java.awt.Color(117, 117, 117));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(117, 117, 117));
-        jLabel30.setText("Data");
+        divider3_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        divider3_label.setForeground(new java.awt.Color(117, 117, 117));
+        divider3_label.setText("Data");
 
         jSeparator10.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator10.setForeground(new java.awt.Color(117, 117, 117));
@@ -384,7 +397,7 @@ public class ToolInterface extends javax.swing.JFrame {
             .addGroup(divider3Layout.createSequentialGroup()
                 .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel30)
+                .addComponent(divider3_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
         );
@@ -394,7 +407,7 @@ public class ToolInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(divider3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel30)
+                    .addComponent(divider3_label)
                     .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
         );
@@ -543,24 +556,47 @@ public class ToolInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void onCreateBallButton(java.awt.event.MouseEvent evt) {
+    private void onCreateBallButton(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onCreateBallButton
+        PositionForm positionForm = new PositionForm(x0_field.getText(), y0_field.getText());
+        VelocityForm velocityForm = new VelocityForm(v0x_field.getText(), v0y_field.getText());
+        AccelerationForm accelerationForm = new AccelerationForm(ax_field.getText(), ay_field.getText());
         
-        VelocityForm velocityForm = new VelocityForm("", "");
-        if (velocityForm.isDataValid){
+        if (positionForm.isDataValid && velocityForm.isDataValid && accelerationForm.isDataValid){
+            boolean istrasnformUnitNeedIt = true;
+
+            interfaceEvents.requesBallCreation(
+                positionForm.getValidatedData(istrasnformUnitNeedIt), 
+                velocityForm.getValidatedData(istrasnformUnitNeedIt), 
+                accelerationForm.getValidatedData(istrasnformUnitNeedIt));
             
+        }else{
+            String all_error_messages = 
+                velocityForm.error_messages + "\n" +
+                accelerationForm.error_messages;
+            System.out.println(all_error_messages);
         }
 
+    }//GEN-LAST:event_onCreateBallButton
+
+    public void setBallPosition(Position ballPosition){
+        x0_field.setText(Float.toString(ballPosition.x));
+        y0_field.setText(Float.toString(ballPosition.y));
     }
 
-    private void onStartSimulation(java.awt.event.MouseEvent evt) {
-        
-    }
+    private void onStartSimulation(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onStartSimulation
+        interfaceEvents.requestBallPosition();
+    }//GEN-LAST:event_onStartSimulation
 
-    private void onRestartSimulation(java.awt.event.MouseEvent evt) {
+    private void onRestartSimulation(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onRestartSimulation
         
-    }
+    }//GEN-LAST:event_onRestartSimulation
 
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -577,7 +613,9 @@ public class ToolInterface extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ToolInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ToolInterface().setVisible(true);
@@ -585,6 +623,7 @@ public class ToolInterface extends javax.swing.JFrame {
         });
     }
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel acceleration_x_data;
     private javax.swing.JLabel acceleration_x_label;
     private javax.swing.JLabel acceleration_y_data;
@@ -603,12 +642,12 @@ public class ToolInterface extends javax.swing.JFrame {
     private javax.swing.JPanel data6;
     private javax.swing.JPanel data_layout;
     private javax.swing.JPanel divider1;
+    private javax.swing.JLabel divider1_label;
     private javax.swing.JPanel divider2;
+    private javax.swing.JLabel divider2_label;
     private javax.swing.JPanel divider3;
+    private javax.swing.JLabel divider3_label;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -627,18 +666,19 @@ public class ToolInterface extends javax.swing.JFrame {
     private javax.swing.JPanel restart_button;
     private javax.swing.JPanel start_button;
     private javax.swing.JLabel title_label;
-    private javax.swing.JTextField v0x_field1;
+    private javax.swing.JTextField v0x_field;
     private javax.swing.JLabel v0x_label;
+    private javax.swing.JTextField v0y_field;
     private javax.swing.JLabel v0y_label;
     private javax.swing.JLabel velocity_x_data;
     private javax.swing.JLabel velocity_x_label;
     private javax.swing.JLabel velocity_y_data;
     private javax.swing.JLabel velocity_y_label;
-    private javax.swing.JTextField voy_field;
     private javax.swing.JTextField x0_field;
     private javax.swing.JLabel x0_label;
     private javax.swing.JPanel xvector_data;
     private javax.swing.JTextField y0_field;
     private javax.swing.JLabel y0_label;
     private javax.swing.JPanel yvector_data;
+    // End of variables declaration//GEN-END:variables
 }

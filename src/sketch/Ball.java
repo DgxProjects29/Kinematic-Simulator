@@ -5,6 +5,7 @@ import vectors.*;
 public class Ball {
 
     private ProcessingSketch mySketch;
+    private static float RADIUS = 20;
 
     Position position;
     Velocity velocity;
@@ -34,7 +35,12 @@ public class Ball {
 
     private void drawBall() {
         mySketch.fill(255);
-        mySketch.circle(position.x, position.y, 20);
+        mySketch.circle(position.x, position.y, RADIUS);
+    }
+
+    public static void previewBall(ProcessingSketch mySketch, float x, float y){
+        mySketch.fill(255);
+        mySketch.circle(x, y, RADIUS);
     }
 
     public void onUpdate(){
